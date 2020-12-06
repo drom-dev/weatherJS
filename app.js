@@ -76,7 +76,7 @@ form.addEventListener("submit", e => {
       list.appendChild(li);
     })
     .catch(() => {
-      msg.textContent = "Please search for a valid city UwU";
+      msg.textContent = "Please search for a valid city or try using (City, State) format UwU";
     });
 
   msg.textContent = "";
