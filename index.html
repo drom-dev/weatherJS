@@ -1,38 +1,77 @@
 <!doctype html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <head>
   <meta charset="utf-8">
   <title>WeatherApp</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet"  href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css"/>
+  <script type="text/javascript"  src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script>
+
+  <!-- Link to Aeris.js  library -->
+  <script type="text/javascript"  src="//cdn.aerisjs.com/aeris.min.js" ></script>
 </head>
 
 <body>
 
-    <section class="top-banner">
-        <div class="container">
-          <h1 class="heading">WeatherJS</h1>
-          <form>
-            <input type="text" placeholder="Search here!" autofocus>
-            <button type="submit">Get Weather</button>
-            <span class="msg"></span>
-          </form>
-        </div>
-      </section>
+  <section class="top-banner" style="width: 800px; height: 600px;">
+    <h1 class="heading">WeatherJS</h1>
+    <br />
 
-      <section class="ajax-section">
-        <div class="container">
-          <ul class="cities"></ul>
-        </div>
-      </section>
+    <div class="container" >
+        <form style="max-width: 800px; max-height: 600px;">
+          <input type="text" placeholder="Search here!" autofocus>
+          <button type="submit">Get Weather</button>
+          <span class="msg"></span>
+        </form>
+    </div>
+  </section>
 
-      <footer class="page-footer">
-        <div class="container">
-           by David Romero</a>
-          </small>
-        </div>
-      </footer>
+      
+  <section class="ajax-section">
+    <div class="container">
+      <ul class="cities"></ul>
+    </div>
+  </section>
 
-  <script src="app.js"></script>
+  <br />
+    
+  <div id="map-canvas" style="width: 800px; height: 600px;" >
+    <script type="text/javascript">
+      aeris.config.set({
+        apiId: 'ArWyyFn2iXDrvxKb8UHjV',
+        apiSecret: 'lrxarEHu5ZvSrpmrQQoqC8PvJYQcrUuc3mSIXBxH'
+      });
 
+      var map = new aeris.maps.Map('map-canvas');
+
+      //  Create a radar layer
+      var radar = new aeris.maps.layers.Radar();
+          
+      // Create a satellite layer
+      var satellite = new aeris.maps.layers.Satellite();
+
+      //var temps = new aeris.maps.layers.Temps();
+      var advisories = new aeris.maps.layers.Advisories();
+          
+      //temps.setMap(map);
+      radar.setMap(map);
+      satellite.setMap(map);
+      advisories.setMap(map);
+      //  Change the opacity of the radar layer
+      radar.setOpacity(0.5);
+      satellite.setOpacity(0.5);
+      advisories.setOpacity(0.5);
+            
+      //  Move the temps layer in front of the satellite layer
+      satellite.setZIndex(1);
+      //temps.setZIndex(2);
+      advisories.setZIndex(3);
+
+    </script>
+    
+    <script src="app.js"></script>
+  </div>
+  </footer>
 </body>
 </html>
